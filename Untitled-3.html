@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health & Wellness App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Health & Wellness App</h1>
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Settings</a></li>
+                <li><a href="#">Sign Out</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <!-- Personalized dashboard -->
+        <section id="home">
+            <div class="container">
+                <h2>Dashboard</h2>
+                <!-- Personalized dashboard -->
+                <div class="dashboard">
+                    <!-- Steps taken -->
+                    <div class="metric">
+                        <h3>Steps Taken</h3>
+                        <p id="steps">10,000</p> <!-- This value will be dynamically updated based on user data -->
+                    </div>
+                    <!-- Calories burned -->
+                    <div class="metric">
+                        <h3>Calories Burned</h3>
+                        <p id="calories">500</p> <!-- This value will be dynamically updated based on user data -->
+                    </div>
+                    <!-- Sleep duration -->
+                    <div class="metric">
+                        <h3>Sleep Duration</h3>
+                        <p id="sleep">8 hours</p> <!-- This value will be dynamically updated based on user data -->
+                    </div>
+                    <!-- Mindfulness minutes -->
+                    <div class="metric">
+                        <h3>Mindfulness Minutes</h3>
+                        <p id="mindfulness">20</p> <!-- This value will be dynamically updated based on user data -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Fitness section -->
+        <section id="fitness">
+            <div class="container">
+                <h2>Fitness Tracking</h2>
+                <!-- Fitness tracking form -->
+                <form>
+                    <label for="activity">Activity Type:</label>
+                    <select id="activity" name="activity">
+                        <option value="walking">Walking</option>
+                        <option value="running">Running</option>
+                        <option value="cycling">Cycling</option>
+                        <!-- Add more activity options as needed -->
+                    </select>
+                    <label for="duration">Duration (minutes):</label>
+                    <input type="number" id="duration" name="duration" min="1" max="120" value="30">
+                    <button type="submit">Log Activity</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Nutrition section -->
+        <section id="nutrition">
+            <div class="container">
+                <h2>Nutrition Planning</h2>
+                <!-- Nutrition tracking form -->
+                <form>
+                    <label for="food">Food Item:</label>
+                    <input type="text" id="food" name="food">
+                    <label for="calories">Calories (kcal):</label>
+                    <input type="number" id="calories" name="calories" min="0">
+                    <label for="quantity">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" min="1" value="1">
+                    <button type="submit">Add Food</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Mindfulness section -->
+        <section id="mindfulness">
+            <div class="container">
+                <h2>Mindfulness Exercises</h2>
+                <!-- Mindfulness exercise options -->
+                <ul>
+                    <li><a href="#">Guided Meditation</a></li>
+                    <li><a href="#">Breathing Exercises</a></li>
+                    <li><a href="#">Progressive Muscle Relaxation</a></li>
+                    <!-- Add more exercise options as needed -->
+                </ul>
+            </div>
+        </section>
+
+        <!-- Goals section -->
+        <section id="goals">
+            <div class="container">
+                <h2>Goal Setting</h2>
+                <!-- Goal setting form -->
+                <form>
+                    <label for="goal">Set Goal:</label>
+                    <input type="text" id="goal" name="goal">
+                    <label for="deadline">Deadline:</label>
+                    <input type="date" id="deadline" name="deadline">
+                    <button type="submit">Set Goal</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Community section -->
+        <section id="community">
+            <div class="container">
+                <h2>Community Support</h2>
+                <!-- Community discussion forum -->
+                <div class="forum">
+                    <h3>Join the Conversation</h3>
+                    <!-- Discussion topics -->
+                    <ul>
+                        <li><a href="#">Healthy Recipes</a></li>
+                        <li><a href="#">Workout Tips</a></li>
+                        <li><a href="#">Mindfulness Practices</a></li>
+                        <!-- Add more discussion topics as needed -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Health & Wellness App</p>
+    </footer>
+
+    <!-- JavaScript code for navigation and form validation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation functionality
+            const navLinks = document.querySelectorAll('nav ul li a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const targetSectionId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetSectionId);
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // Toggle section visibility
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.style.display = 'none'; // Hide all sections by default
+            });
+
+            const showSection = function(sectionId) {
+                sections.forEach(section => {
+                    section.style.display = 'none'; // Hide all sections
+                });
+                document.getElementById(sectionId).style.display = 'block'; // Show the specified section
+            };
+
+            // Show home section by default
+            showSection('home');
+
+            // Form validation
+            const form = document.getElementById('form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                const emailInput = document.getElementById('email-id');
+                const emailValue = emailInput.value.trim();
+                if (!isValidEmail(emailValue)) {
+                    alert('Please enter a valid email address.');
+                    emailInput.focus();
+                } else {
+                    // Perform form submission or other action
+                    alert('Form submitted successfully!');
+                    form.reset();
+                }
+            });
+
+            const isValidEmail = function(email) {
+                // Basic email validation using a regular expression
+                const emailPattern = /^[^\s@]+@[^\s@]+\
